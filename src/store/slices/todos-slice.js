@@ -10,6 +10,9 @@ export const todosSlice = createSlice({
       state.todos.push(action.payload);
       console.log("action name", action);
     },
+    removeTodo: (state, action) => {
+        state.todos = state.todos.filter((todo) => todo.id !== action.payload);
+      },
     addCard: (state, action) => {
       state.todos.forEach((item) => {
         if (item.id === action.payload.parentId) {
@@ -25,4 +28,4 @@ export const todosSlice = createSlice({
     },
   },
 });
-export const { addTodos, addCard } = todosSlice.actions;
+export const { addTodos, addCard, removeTodo } = todosSlice.actions;
