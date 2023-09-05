@@ -5,13 +5,26 @@ import { auth } from "../../firebase";
 import { Box, Button, TextField } from "@mui/material";
 import { createUserWithEmailAndPassword } from "@firebase/auth";
 import { NavLink } from "react-router-dom";
+import { useSnackbar } from "notistack";
 
 const Register = () => {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const notify = (message, variant = "success") => {
+    enqueueSnackbar({
+      variant: variant,
+      autoHideDuration: 5000,
+      message: message,
+      anchorOrigin: {
+        vertical: "top",
+        horizontal: "right",
+      },
+      hideIconVariant: "true",
+    });
+  };
   const onSubmit = async (e) => {
     e.preventDefault();
 
@@ -21,12 +34,14 @@ const Register = () => {
         const user = userCredential.user;
         console.log(user);
         navigate("/");
+        notify("Successfully saved!")
         // ...
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorCode, errorMessage);
+        notify(error?.message || error || "Something went wrong", "error");
         // ..
       });
   };

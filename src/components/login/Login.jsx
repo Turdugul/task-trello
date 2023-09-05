@@ -5,26 +5,42 @@ import { useNavigate } from "react-router";
 import { NavLink } from "react-router-dom";
 import { auth } from "../../firebase";
 import { signInWithEmailAndPassword } from "@firebase/auth";
+import { useSnackbar } from "notistack";
 
 const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const notify = (message, variant = "success") => {
+    enqueueSnackbar({
+      variant: variant,
+      autoHideDuration: 5000,
+      message: message,
+      anchorOrigin: {
+        vertical: "top",
+        horizontal: "right",
+      },
+      hideIconVariant: "true",
+    });
+  };
 
   const onLogin = (e) => {
     e.preventDefault();
     signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-        navigate("/");
-        console.log(user);
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
-      });
+    .then((userCredential) => {
+      // Signed in
+      const user = userCredential.user;
+      navigate("/");
+      console.log(user);
+      notify("Successfully logged in!")
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      notify(error?.message || error || "Something went wrong", "error");
+      console.log(errorCode, errorMessage);
+    });
   };
   return (
     <Box>
@@ -58,11 +74,10 @@ const Login = () => {
           Login
         </Button>
         <p className="text-sm text-white text-center">
-        No account yet? <NavLink to="/register">Register</NavLink>
-      </p>
+          No account yet? <NavLink to="/register">Register</NavLink>
+        </p>
       </StyledBox>
       ///
-     
     </Box>
   );
 };
