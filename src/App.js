@@ -15,7 +15,6 @@ function App() {
           <section>
             <Routes>
               <Route path="/" element={<Home />} />
-              
               <Route path="/register" element={<Register />} />
               <Route path="/login" element={<Login />} />
               <Route path="/sidebar" element={<Sidebar />} />
@@ -26,5 +25,6 @@ function App() {
     </div>
   );
 }
-
+//added done
+//
 export default App;
