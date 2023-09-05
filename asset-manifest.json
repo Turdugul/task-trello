@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/task-trello/static/css/main.e6c13ad2.css",
+    "main.js": "/task-trello/static/js/main.172ecd91.js",
+    "index.html": "/task-trello/index.html",
+    "main.e6c13ad2.css.map": "/task-trello/static/css/main.e6c13ad2.css.map",
+    "main.172ecd91.js.map": "/task-trello/static/js/main.172ecd91.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.172ecd91.js"
+  ]
+}
